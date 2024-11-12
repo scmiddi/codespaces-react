@@ -58,7 +58,6 @@ function App() {
   };
 
   return (
-    
     <div className="App">
       <header className="App-header">
         <h1>Gesa's Adventskalender</h1>
@@ -88,15 +87,18 @@ function App() {
                 <h2>Wähle das passende Rätsel für den {selectedDay}. Dezember:</h2>
                 <div className="options">
                   {/* Antwortmöglichkeiten mischen */}
-                  {shuffleArray(Object.values(riddles).map(riddle => riddle.question)).map((answer, index) => (
-                    <button
-                      key={index}
-                      className="option-button"
-                      onClick={() => checkAnswer(selectedDay, answer)}
-                    >
-                      {answer}
-                    </button>
-                  ))}
+                  {shuffleArray(Object.keys(riddles)).map((key, index) => {
+                    const riddle = riddles[key];
+                    return (
+                      <button
+                        key={index}
+                        className="option-button"
+                        onClick={() => checkAnswer(selectedDay, riddle.correctAnswer)}
+                      >
+                        {riddle.question}
+                      </button>
+                    );
+                  })}
                 </div>
               </>
             ) : (
