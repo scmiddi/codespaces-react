@@ -1,18 +1,37 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 
+// Funktion zum Mischen von Arrays (Fisher-Yates-Algorithmus)
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap
+  }
+  return shuffled;
+};
+
 function App() {
-  const solutions = {
-    1: "2",  // Beispiel: Lösung für den 1. Dezember
-    2: "4",  // Beispiel: Lösung für den 2. Dezember
-    // Füge hier weitere Lösungen hinzu
+  // Rätsel mit den richtigen Antworten für ungerade Tage
+  const riddles = {
+    1: { question: "Mio Einwohner Saarland", correctAnswer: "1" },
+    3: { question: "?.12. und nochmal älter geworden", correctAnswer: "3" },
+    5: { question: "Wochen ohne dich", correctAnswer: "5" },
+    7: { question: "löcher bald", correctAnswer: "7" },
+    9: { question: "mal Waschalarm", correctAnswer: "9" },
+    11: { question: "Cro", correctAnswer: "11" },
+    13: { question: "1|1|2|3|5|8|?", correctAnswer: "13" },
+    15: { question: "Minuten bis zum Forst", correctAnswer: "15" },
+    17: { question: "Bis morgen", correctAnswer: "17" },
+    19: { question: "Insta Beiträge", correctAnswer: "19" },
+    21: { question: "Makko", correctAnswer: "21" },
+    23: { question: "Trotzdem noch jung", correctAnswer: "23" },
   };
 
-  const answerOptions = ["1", "2", "3", "4", "5"]; // Beispielhafte Antworten, für alle Tage gleich
   const [openedDays, setOpenedDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
 
-  // Beim ersten Laden des Components die gespeicherten Daten aus dem localStorage laden
+  // LocalStorage beim Laden der Komponente abrufen
   useEffect(() => {
     const savedDays = JSON.parse(localStorage.getItem('openedDays')) || [];
     setOpenedDays(savedDays);
@@ -26,7 +45,8 @@ function App() {
 
   // Funktion zur Überprüfung der Antwort
   const checkAnswer = (day, answer) => {
-    if (answer === solutions[day]) {
+    const correctAnswer = riddles[day]?.correctAnswer;
+    if (answer === correctAnswer) {
       alert("Richtig!");
       const newOpenedDays = [...openedDays, day];
       updateOpenedDays(newOpenedDays);
@@ -46,6 +66,8 @@ function App() {
           {/* Generiere 24 Kästchen für die Tage */}
           {[...Array(24)].map((_, i) => {
             const day = i + 1;
+            const isRiddleDay = riddles.hasOwnProperty(day);
+
             return (
               <div
                 key={day}
@@ -58,22 +80,35 @@ function App() {
           })}
         </div>
 
-        {/* Antwortmöglichkeiten nur anzeigen, wenn ein Tag ausgewählt wurde */}
+        {/* Anzeige von Bild oder Rätsel je nach Tag */}
         {selectedDay && (
           <div className="answer-list">
-            <h2>Rätsel für den {selectedDay}. Dezember</h2>
-            <p>Wähle die richtige Antwort:</p>
-            <div className="options">
-              {answerOptions.map((option, index) => (
-                <button
-                  key={index}
-                  className="option-button"
-                  onClick={() => checkAnswer(selectedDay, option)}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
+            {riddles[selectedDay] ? (
+              <>
+                <h2>Wähle das passende Rätsel für den {selectedDay}. Dezember:</h2>
+                <div className="options">
+                  {/* Antwortmöglichkeiten mischen */}
+                  {shuffleArray([riddles[selectedDay].correctAnswer, "2", "3", "4"]).map((answer, index) => (
+                    <button
+                      key={index}
+                      className="option-button"
+                      onClick={() => checkAnswer(selectedDay, answer)}
+                    >
+                      {answer}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="image-box">
+                {/* Lade das Bild aus dem public/images Ordner */}
+                <img 
+                  src={`./images/${selectedDay}.jpg`} 
+                  alt={`Bild für den ${selectedDay}. Dezember`} 
+                  className="image" 
+                />
+              </div>
+            )}
             <button className="close-button" onClick={() => setSelectedDay(null)}>
               Schließen
             </button>
