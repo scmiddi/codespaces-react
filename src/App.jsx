@@ -103,17 +103,19 @@ function App() {
               </>
             ) : (
               <div className="image-box">
-                {/* Lade das Bild aus dem public/images Ordner */}
-                <img 
-                  src={`./images/${selectedDay}.jpeg`} 
-                  alt={`Bild für den ${selectedDay}. Dezember`} 
-                  className="image" 
+                {/* Load the image from the public/images folder */}
+                <img
+                  src={`./images/${selectedDay}.jpeg`}
+                  onError={(e) => { 
+                    e.target.onerror = null; 
+                    e.target.src = `./images/${selectedDay}.png`; 
+                  }}
+                  alt={`Bild für den ${selectedDay}. Dezember`}
+                  className="image"
                 />
               </div>
             )}
-            <button className="close-button" onClick={() => setSelectedDay(null)}>
-              Schließen
-            </button>
+            
           </div>
         )}
       </header>
