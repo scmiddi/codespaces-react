@@ -1,82 +1,122 @@
+/* Allgemeines Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fb;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #BC7C7C;
   color: white;
+  padding: 20px;
+  border-bottom: 3px solid #e3e3e3;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
 }
 
 .calendar {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 300px;
-  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 Spalten */
+  gap: 15px;
+  max-width: 80%;
+  margin: 30px auto;
+  padding: 20px;
 }
 
 .day-box {
-  width: 50px;
-  height: 50px;
-  margin: 5px;
-  background-color: #ddd;
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff;
   color: #333;
-  text-align: center;
-  line-height: 50px;
-  font-weight: bold;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  transition: transform 0.2s, background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-box:hover {
+  background-color: #f5a623;
+  transform: scale(1.1);
 }
 
 .day-box.opened {
   background-color: #4CAF50;
-  color: #fff;
+  color: white;
 }
 
-.answer-list {
-  margin-top: 20px;
-  background-color: #fff;
-  color: #333;
-  padding: 20px;
+.answer-modal {
+  background-color: white;
   border-radius: 10px;
-  text-align: center;
-  width: 300px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
 }
 
 .option-button {
-  padding: 10px;
-  background-color: #4CAF50;
+  margin: 10px;
+  padding: 12px 20px;
+  background-color: #ff6f61;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
+  font-size: 1.1em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
 }
 
 .option-button:hover {
-  background-color: #45a049;
+  background-color: #e35d47;
+  transform: scale(1.05);
+}
+
+.image-box {
+  text-align: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .close-button {
-  margin-top: 15px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   background-color: #f44336;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
+  font-size: 1.1em;
   cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+  width: 100%;
 }
 
 .close-button:hover {

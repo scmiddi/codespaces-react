@@ -12,7 +12,7 @@ const shuffleArray = (array) => {
 };
 
 function App() {
-  // Rätsel mit den richtigen Antworten für ungerade Tage
+  // Alle Rätsel mit der richtigen Antwort und den falschen Antworten
   const riddles = {
     1: { question: "Mio Einwohner Saarland", correctAnswer: "1" },
     3: { question: "?.12. und nochmal älter geworden", correctAnswer: "3" },
@@ -88,7 +88,7 @@ function App() {
                 <h2>Wähle das passende Rätsel für den {selectedDay}. Dezember:</h2>
                 <div className="options">
                   {/* Antwortmöglichkeiten mischen */}
-                  {shuffleArray([riddles[selectedDay].correctAnswer, "2", "3", "4"]).map((answer, index) => (
+                  {shuffleArray(Object.values(riddles).map(riddle => riddle.question)).map((answer, index) => (
                     <button
                       key={index}
                       className="option-button"
