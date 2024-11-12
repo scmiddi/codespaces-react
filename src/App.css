@@ -1,124 +1,134 @@
-/* Allgemeines Styling */
+/* Grundlegende Gestaltung */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f7fb;
+  font-family: 'Lora', serif;
   margin: 0;
   padding: 0;
-  color: #333;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #BC7C7C;
-  color: white;
-  padding: 20px;
-  border-bottom: 3px solid #e3e3e3;
-}
-
-.subtitle {
-  font-size: 1.2em;
-  margin-top: 5px;
-}
-
-h1 {
-  font-size: 3em;
-  margin-bottom: 10px;
-}
-
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 Spalten */
-  gap: 15px;
-  max-width: 80%;
-  margin: 30px auto;
-  padding: 20px;
-}
-
-.day-box {
-  width: 60px;
-  height: 60px;
-  background-color: #ffffff;
-  color: #333;
-  font-size: 1.5em;
+  background: #f2e8cf; /* Heller Hintergrund */
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  min-height: 100vh;
+}
+
+/* Kalender-Layout */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Spalten */
+  gap: 10px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #f2e8cf; /* Weißer Hintergrund für den Kalender */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Leichter Schatten für das Layout */
+}
+
+/* Einzelne Tageskästchen */
+.day-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bc4749; /* Grüne Farbe für die Tage */
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 20px;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
 }
 
 .day-box:hover {
-  background-color: #f5a623;
-  transform: scale(1.1);
+  transform: scale(1.1); /* Leichte Vergrößerung beim Hover */
 }
 
+/* "Abgeschlossene" Tage */
 .day-box.opened {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #61b07d; /* Andere Farbe für die geöffneten Tage */
+  text-decoration: line-through;
 }
 
+/* Modal für die Antwortmöglichkeiten */
 .answer-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
-  border-radius: 10px;
   padding: 20px;
-  max-width: 400px;
-  margin: 20px auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
 }
 
+.answer-modal .close-button {
+  background-color: #bc4749;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+}
+
+.answer-modal .close-button:hover {
+  background-color: #e00000;
+}
+
+/* Option-Buttons im Modal */
 .options {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 10px;
 }
 
 .option-button {
-  margin: 10px;
-  padding: 12px 20px;
-  background-color: #ff6f61;
+  background-color: #bc4749;
   color: white;
   border: none;
-  border-radius: 30px;
-  font-size: 1.1em;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  width: 100%;
+  transition: background-color 0.2s ease;
 }
 
 .option-button:hover {
-  background-color: #e35d47;
-  transform: scale(1.05);
+  background-color: #bc4749;
 }
 
-.image-box {
-  text-align: center;
-}
-
-.image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.close-button {
-  padding: 10px 20px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 15px;
+.image-box img {
   width: 100%;
+  max-width: 400px; /* Limit der Bildgröße */
+  height: auto;
+  border-radius: 8px;
 }
 
-.close-button:hover {
-  background-color: #e41e1e;
+/* Für mobile Geräte: */
+@media (max-width: 600px) {
+  /* Anpassungen für kleinere Bildschirme */
+  .calendar {
+    grid-template-columns: repeat(3, 1fr); /* Weniger Spalten für kleinere Geräte */
+    padding: 10px;
+  }
+
+  .day-box {
+    font-size: 18px; /* Kleinere Zahlen für mobile Geräte */
+    padding: 15px;
+  }
+
+  .answer-modal {
+    width: 90%; /* Größer für kleine Bildschirme */
+  }
+
+  .option-button {
+    font-size: 14px; /* Kleinere Schriftgröße für mobile Geräte */
+    padding: 10px;
+  }
 }

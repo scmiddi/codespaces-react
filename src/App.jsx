@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" />
 
 // Funktion zum Mischen von Arrays (Fisher-Yates-Algorithmus)
 const shuffleArray = (array) => {
@@ -57,11 +58,10 @@ function App() {
   };
 
   return (
+    
     <div className="App">
       <header className="App-header">
-        <h1>Adventskalender Rätsel</h1>
-        <p>Klicke auf den Tag, um das Rätsel zu lösen!</p>
-
+        <h1>Gesa's Adventskalender</h1>
         <div id="calendar" className="calendar">
           {/* Generiere 24 Kästchen für die Tage */}
           {[...Array(24)].map((_, i) => {
