@@ -103,7 +103,7 @@ function App() {
               <div className="image-box">
                 {/* Lade das Bild aus dem public/images Ordner */}
                 <img 
-                  src={`./images/${selectedDay}.jpg`} 
+                  src={`./images/${selectedDay}.jpeg`} 
                   alt={`Bild für den ${selectedDay}. Dezember`} 
                   className="image" 
                 />
