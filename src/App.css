@@ -2,11 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -18,14 +13,72 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 300px;
+  margin: 20px auto;
 }
 
-.heart {
-  color: #ff0000;
+.day-box {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  background-color: #ddd;
+  color: #333;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
-.small {
-  font-size: 0.75rem;
+.day-box.opened {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.answer-list {
+  margin-top: 20px;
+  background-color: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.option-button:hover {
+  background-color: #45a049;
+}
+
+.close-button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #e41e1e;
 }
