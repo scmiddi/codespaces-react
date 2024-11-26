@@ -1,6 +1,12 @@
 /* Grundlegende Gestaltung */
+@font-face {
+  font-family: 'NeueStoeferle';
+  src: url('/NeueStoeferle-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
 body {
-  font-family: 'Lora', serif;
+  font-family: 'NeueStoeferle', sans-serif;
   margin: 0;
   padding: 0;
   background: #f2e8cf; /* Heller Hintergrund */
@@ -9,6 +15,7 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+
 
 /* Kalender-Layout */
 .calendar {
@@ -89,6 +96,7 @@ body {
 }
 
 .option-button {
+  font-family: 'NeueStoeferle';
   background-color: #bc4749;
   color: white;
   border: none;

@@ -16,7 +16,7 @@ function App() {
   // Alle Rätsel mit der richtigen Antwort und den falschen Antworten
   const riddles = {
     1: { question: "Mio Einwohner Saarland", correctAnswer: "1" },
-    3: { question: "?.12. und nochmal älter geworden", correctAnswer: "3" },
+    3: { question: "so alt in Z negat", correctAnswer: "3" },
     5: { question: "Wochen ohne dich", correctAnswer: "5" },
     7: { question: "löcher bald", correctAnswer: "7" },
     9: { question: "mal Waschalarm", correctAnswer: "9" },
@@ -29,19 +29,46 @@ function App() {
     23: { question: "Trotzdem noch jung", correctAnswer: "23" },
   };
 
+  // Lösungen für die Tage
+  const solutions = {
+    1: "44,8",
+    3: "-7",
+    5: "-89,7",
+    7: "90",
+    9: "-22,5",
+    11: "0",
+    13: "0",
+    15: "43,9",
+    17: "-17,8",
+    19: "-17,9",
+    21: "40,7",
+    23: "-24",
+  };
+
   const [openedDays, setOpenedDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [shownSolutions, setShownSolutions] = useState({});
 
   // LocalStorage beim Laden der Komponente abrufen
   useEffect(() => {
     const savedDays = JSON.parse(localStorage.getItem('openedDays')) || [];
     setOpenedDays(savedDays);
+
+    const savedSolutions = JSON.parse(localStorage.getItem('shownSolutions')) || {};
+    setShownSolutions(savedSolutions);
   }, []);
 
   // Speichert die Liste der geöffneten Tage im localStorage
   const updateOpenedDays = (newOpenedDays) => {
     setOpenedDays(newOpenedDays);
     localStorage.setItem('openedDays', JSON.stringify(newOpenedDays));
+  };
+
+  // Speichert die Lösungen in localStorage
+  const updateShownSolutions = (day, solution) => {
+    const updatedSolutions = { ...shownSolutions, [day]: solution };
+    setShownSolutions(updatedSolutions);
+    localStorage.setItem('shownSolutions', JSON.stringify(updatedSolutions));
   };
 
   // Funktion zur Überprüfung der Antwort
@@ -51,6 +78,9 @@ function App() {
       alert("Richtig!");
       const newOpenedDays = [...openedDays, day];
       updateOpenedDays(newOpenedDays);
+
+      const solution = solutions[day];
+      updateShownSolutions(day, solution);
     } else {
       alert("Leider falsch. Versuche es nochmal!");
     }
@@ -65,7 +95,6 @@ function App() {
           {/* Generiere 24 Kästchen für die Tage */}
           {[...Array(24)].map((_, i) => {
             const day = i + 1;
-            const isRiddleDay = riddles.hasOwnProperty(day);
 
             return (
               <div
@@ -79,10 +108,15 @@ function App() {
           })}
         </div>
 
-        {/* Anzeige von Bild oder Rätsel je nach Tag */}
+        {/* Anzeige von Bild, Rätsel oder Lösung je nach Zustand */}
         {selectedDay && (
           <div className="answer-list">
-            {riddles[selectedDay] ? (
+            {shownSolutions[selectedDay] ? (
+              <div className="solution">
+                <h2>Lösung für den {selectedDay}. Dezember:</h2>
+                <p>{shownSolutions[selectedDay]}</p>
+              </div>
+            ) : riddles[selectedDay] ? (
               <>
                 <h2>Wähle das passende Rätsel für den {selectedDay}. Dezember:</h2>
                 <div className="options">
@@ -103,19 +137,21 @@ function App() {
               </>
             ) : (
               <div className="image-box">
-                {/* Load the image from the public/images folder */}
                 <img
                   src={`./images/${selectedDay}.jpeg`}
-                  onError={(e) => { 
-                    e.target.onerror = null; 
-                    e.target.src = `./images/${selectedDay}.png`; 
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = `./images/${selectedDay}.png`;
                   }}
                   alt={`Bild für den ${selectedDay}. Dezember`}
                   className="image"
                 />
               </div>
             )}
-            
+
+            <button className="close-button" onClick={() => setSelectedDay(null)}>
+              Schließen
+            </button>
           </div>
         )}
       </header>
